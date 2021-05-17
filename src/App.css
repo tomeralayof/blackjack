@@ -1,0 +1,19 @@
+img {
+  height: 150px;
+  width: 100px;
+  margin-left: 20px;
+}
+
+.game-container {
+  display: flex;
+  height: 300px;
+  width: 80%;
+  margin: 20px auto;
+  border: 1px solid black;
+  position: relative;
+  /* background-color: black; */
+  opacity: 0.8;
+  background-image: linear-gradient(to right, black, red);
+
+  /* background-image: linear-gradient(to right, rgb(54, 44, 44)); */
+}

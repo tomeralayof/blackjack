@@ -1,0 +1,16 @@
+@import "./styles/playerCards.css";
+@import "./styles/scores.css";
+@import "./styles/buttons.css";
+@import "./styles/accountStatus.css";
+@import "./styles/bets.css";
+@import "./styles/dealerCards.css";
+@import "./styles/test.css";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url(https://images.unsplash.com/photo-1561016444-14f747499547?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=889&q=80);
+}

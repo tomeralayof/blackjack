@@ -1,0 +1,40 @@
+.player-container {
+  width: 50%;
+  margin-top: 100px;
+  margin-left: 5px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 60px 60px 60px 60px 60px 60px 60px 60px;
+  position: absolute;
+  top: 45px;
+  left: 0;
+
+  animation-name: example;
+  animation-duration: 4s;
+  animation-delay: 2s;
+}
+
+@keyframes example {
+  100% {
+    left: 0px;
+    top: 100px;
+  }
+
+  75% {
+    left: 10px;
+    top: 200px;
+  }
+
+  0% {
+    left: 100px;
+    top: 1000px;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-auto-flow: column;
+
+  grid-template-columns: repeat(auto-fit, minmax(min-content, 1fr));
+}

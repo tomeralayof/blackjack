@@ -1,0 +1,11 @@
+.dealer-container {
+  width: 50%;
+  margin-top: 100px;
+  margin-left: 5px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 60px 60px 60px 60px 60px 60px 60px 60px;
+  position: absolute;
+  top: 45px;
+  right: 0;
+}

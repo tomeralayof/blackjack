@@ -1,0 +1,24 @@
+.button-container {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 60px 60px 60px;
+  margin-top: 20px;
+}
+
+.btn-deal {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border: 1px solid red;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.btn-deal:hover {
+  background-color: beige;
+  color: black;
+}

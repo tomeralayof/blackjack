@@ -1,0 +1,16 @@
+.bets {
+  display: flex;
+  flex-direction: row;
+}
+
+.bets > button {
+  background-color: indigo;
+  color: rgb(4, 255, 0);
+  margin: 20px;
+  cursor: pointer;
+  padding: 20px;
+  width: 100px;
+  letter-spacing: 1.5px;
+  font-size: 15px;
+  font-weight: 700;
+}
