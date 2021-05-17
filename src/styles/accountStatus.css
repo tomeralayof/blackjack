@@ -1,6 +1,7 @@
 .account-container {
   margin-left: 20px;
-  background-color: rgb(131, 131, 231);
+  background-color: rgb(99, 16, 60);
+  opacity: 0.8;
   width: 200px;
   height: 100px;
   margin-top: 20px;

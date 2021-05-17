@@ -9,21 +9,41 @@ const Buttons = ({
   isShowBet,
   isDoubleClicked,
   stand,
+  isGameOver,
+  isHitClicked,
 }) => {
   return (
     <div className="button-container">
-      {isDealClicked && <button onClick={() => hitCard()}>hit</button>}
-      {isDealClicked && <button onClick={() => stand()}>stand</button>}
-      {!isDealClicked && (
+      {isDealClicked && !isGameOver && (
+        <button className="biti" onClick={() => hitCard()}>
+          hit
+        </button>
+      )}
+      {isDealClicked && !isGameOver && (
+        <button className="biti" onClick={() => stand()}>
+          stand
+        </button>
+      )}
+      {!isDealClicked && !isGameOver && (
         <button className="btn-deal" onClick={() => randomCards()}>
           Deal
         </button>
       )}
 
-      {isDealClicked && <button onClick={newGame}>Start Again !</button>}
-      {isDealClicked && isShowBet && !isDoubleClicked && (
-        <button onClick={() => doubleBet()}>Double</button>
+      {isDealClicked && isGameOver && (
+        <button className="biti" onClick={newGame}>
+          Start Again !
+        </button>
       )}
+      {isDealClicked &&
+        isShowBet &&
+        !isDoubleClicked &&
+        !isGameOver &&
+        !isHitClicked && (
+          <button className="biti" onClick={() => doubleBet()}>
+            Double
+          </button>
+        )}
     </div>
   );
 };

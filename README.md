@@ -13,5 +13,4 @@ stand - move to player 2
 start a new game:
 
 - score will be set to 0;
--
-# blackjack
+- // on process dev.

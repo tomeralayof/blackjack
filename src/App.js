@@ -1,12 +1,11 @@
 import './App.css';
 import CardService from './services/CardService';
 import playerService from "./services/playerService";
-import {useState,useEffect} from 'react';
+import React, {useState,useEffect} from 'react';
 import Scores from "./components/scores";
 import PlayerCards from "./components/PlayerCards";
 import DealerCards from "./components/dealderCards";
 import Buttons from "./components/buttons";
-import TableScore from "./components/tableScore";
 import AccountStatus from "./components/accountStatus";
 import Bets from "./components/bets";
 
@@ -16,14 +15,15 @@ function App() {
   const [isDoubleClicked, setIsDoubleClicked] = useState(false);
   const [isShowBet,setIsShowBet] = useState(false);
   const [isStandClicked,setIsStandClicked] = useState(false);
+  const [isGameOver,setIsGameOver] = useState(false);
+  const [isWin,setIsWin] = useState(false);
+  const [isHitClicked,setHitIsClicked] = useState(false);
   const [cardsStatus,setCardsStatus] = useState([]);
   const [playerScore,setPlayerScore] = useState(0);
   const [dealerScore,setDealerScore] = useState(0);
   const [rountBet,setRoundBet] = useState(0);
   const [playerDetails,setPlayerDetails] = useState([]);
   const [dealerCardsStatus,setDealerCarsStatus] = useState([]);
-
-  // console.log(dealerCardsStatus);
 
 
   useEffect(()=>{
@@ -116,18 +116,47 @@ const bet500 = () =>{
 
   //double bet
   const doubleBet = () =>{
-    if(playerDetails.money<rountBet) return;
     const doubleSum = rountBet*2;
-    let moneyDoubleDown = rountBet
-    playerDetails.money = playerDetails.money - moneyDoubleDown
-    setPlayerDetails(playerDetails);
+    const newCardsStatus = [...cardsStatus];
+    let moneyDoubleDown = rountBet;
+    playerDetails.money = playerDetails.money - moneyDoubleDown;
+    let randomCard = cards[Math.floor(Math.random()*cards.length)];
+    newCardsStatus.push(randomCard);
+    setCardsStatus(newCardsStatus);
     setRoundBet(doubleSum);    
     setIsDoubleClicked(true);
+    let newPlayerScore = playerScore;
+    newPlayerScore+=newCardsStatus[2].value;
+    setPlayerScore(newPlayerScore);
+
+
+    if(playerScore<21){
+      console.log("operate stand function")
+    }
+
+    if(playerScore===21){
+      console.log("i win")
+    };
+
+    if(playerScore===21 && (dealerScore===10 || dealerScore===1)){
+      console.log("operate stand function might be equal")
+    }
+
+    console.log(playerScore)
+
+    if(playerScore>=21){
+      console.log("i loose grater then 21")
+    }
+
+
+
+
   };
 
  
   //push a card from the deck
   const hitCard = () => {
+    setHitIsClicked(true);
     if(playerScore<21){
     const keepPlaying = [...cardsStatus];  
     let randomCard = cards[Math.floor(Math.random()*cards.length)];
@@ -136,24 +165,49 @@ const bet500 = () =>{
     let scoreCounter = 0;
     for(let i =0; i<keepPlaying.length; i++){      
       scoreCounter+= keepPlaying[i].value;
+      setPlayerScore(scoreCounter);
     }
-    setPlayerScore(scoreCounter)
-    }
-
-    if(playerScore>21){
-      
-    }
-
-    if(playerScore===21){
-      console.log("i win")
+    return;
     }
   }
 
   //stand button
   const stand = () =>{
-    console.log("stand")
-    setIsStandClicked(true);
-  }
+   let newDealerCardStatus = [...dealerCardsStatus];
+    let counterNewScore = 0;
+    for(let i =0; i<newDealerCardStatus.length;i++){
+      if(counterNewScore<17){
+        counterNewScore += newDealerCardStatus[i].value;        
+        let dealerRandomCard = cards[Math.floor(Math.random()*cards.length)];
+        newDealerCardStatus.push(dealerRandomCard); 
+      };
+    };
+    newDealerCardStatus.pop();
+    setDealerCarsStatus(newDealerCardStatus);
+    setDealerScore(counterNewScore)
+    setIsStandClicked(true);  
+    
+    if(counterNewScore<21 && playerScore<counterNewScore ){
+      setIsGameOver(true);
+      setIsWin(false);
+      console.log("i loose")
+      return;
+    }; 
+
+    if(counterNewScore<21 && dealerScore<counterNewScore){
+      console.log("i win")
+      playerDetails.money+= rountBet*2;
+      setPlayerDetails(playerDetails);
+      setIsWin(true);
+      setIsGameOver(true);
+    };
+
+    if(counterNewScore===21){
+      console.log("dealer win");
+      setIsWin(false);
+      setIsGameOver(true);
+    }
+  };
 
 
   //reset buttons to play a new game
@@ -167,14 +221,29 @@ const bet500 = () =>{
     setIsShowBet(false);
     setDealerCarsStatus([]);
     setIsStandClicked(false);
+    setIsGameOver(false);
+    setIsWin(false);
+    setHitIsClicked(false);
   }
 
   return (
     <div className="App">
-      <Scores rountBet={rountBet} dealerScore={dealerScore} playerScore={playerScore}/>
+      
       <div className="game-container">
+
+      <Scores
+       rountBet={rountBet} 
+       dealerScore={dealerScore} 
+       playerScore={playerScore} 
+       isGameOver={isGameOver} 
+       isWin={isWin} />
+
       <PlayerCards cardsStatus={cardsStatus}/>
-      <DealerCards isStandClicked={isStandClicked} isDealClicked={isDealClicked} dealerCardsStatus={dealerCardsStatus}/>
+      <DealerCards
+       isStandClicked={isStandClicked}
+       isDealClicked={isDealClicked}
+       dealerCardsStatus={dealerCardsStatus}
+      />
       </div>
 
       <Buttons 
@@ -189,8 +258,18 @@ const bet500 = () =>{
       isShowBet = {isShowBet}
       isDoubleClicked={isDoubleClicked}
       stand={stand}
-      />;
-     <Bets isDealClicked={isDealClicked} bet1={bet1} bet10={bet10} bet100={bet100} bet500={bet500}/>
+      isGameOver={isGameOver}
+      />
+
+     <Bets
+      isDealClicked={isDealClicked}
+      bet1={bet1}
+      bet10={bet10}
+      bet100={bet100}
+      bet500={bet500}
+      isHitClicked={isHitClicked}
+      />
+
      <AccountStatus playerDetails={playerDetails}/>
     </div>
   );

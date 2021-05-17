@@ -1,11 +1,15 @@
 .scores-container {
-  display: grid;
-  grid-gap: 20px 50px;
+  /* display: grid;
+  grid-gap: 20px 50px; */
   grid-auto-flow: column;
-  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  /* margin-top: 20px; */
   margin-left: 20px;
 }
 
 .scores-container > p {
   color: white;
+  font-weight: 700;
+  margin-left: 50px;
 }
