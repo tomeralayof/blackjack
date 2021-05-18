@@ -1,6 +1,13 @@
 import React from "react";
 
-const Scores = ({ playerScore, dealerScore, rountBet, isWin, isGameOver }) => {
+const Scores = ({
+  playerScore,
+  dealerScore,
+  rountBet,
+  isWin,
+  isGameOver,
+  isEqual,
+}) => {
   return (
     <div className="scores-container">
       <p style={{ fontSize: "30px" }}>
@@ -22,14 +29,17 @@ const Scores = ({ playerScore, dealerScore, rountBet, isWin, isGameOver }) => {
 
       <p>
         Game Result :
-        {/* {!isGameOver && (
+        {!isGameOver && (
           <span style={{ color: "yellow", fontSize: "30px" }}>
             {" "}
-            on process ...
+            on progress ...
           </span>
-        )} */}
+        )}
         {!isWin && isGameOver && (
           <span style={{ color: "red", fontSize: "30px" }}> Loose</span>
+        )}
+        {isEqual && isGameOver && (
+          <span style={{ color: "blue", fontSize: "30px" }}> Equal</span>
         )}
         {isWin && isGameOver && (
           <span style={{ color: "green", fontSize: "30px" }}> Win</span>
