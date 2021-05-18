@@ -1,6 +1,6 @@
 import React from "react";
 
-const Bets = ({ bet1, bet10, bet100, bet500, isDealClicked }) => {
+const Bets = ({ bet1, bet10, bet100, bet500, bet1000, isDealClicked }) => {
   return (
     <div className="bets" style={{ marginTop: "20px" }}>
       {!isDealClicked && (
@@ -9,6 +9,7 @@ const Bets = ({ bet1, bet10, bet100, bet500, isDealClicked }) => {
           <button onClick={() => bet10()}>10$</button>
           <button onClick={() => bet100()}>100$</button>
           <button onClick={() => bet500()}>500$</button>
+          <button onClick={() => bet1000()}>1000$</button>
         </React.Fragment>
       )}
     </div>

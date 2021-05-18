@@ -28,14 +28,14 @@ const Scores = ({
       </p>
 
       <p>
-        Game Result :
+        Round Status :
         {!isGameOver && (
           <span style={{ color: "yellow", fontSize: "30px" }}>
             {" "}
             on progress ...
           </span>
         )}
-        {!isWin && isGameOver && (
+        {!isWin && isGameOver && !isEqual && (
           <span style={{ color: "red", fontSize: "30px" }}> Loose</span>
         )}
         {isEqual && isGameOver && (
